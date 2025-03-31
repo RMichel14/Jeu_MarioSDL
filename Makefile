@@ -12,7 +12,7 @@ INCDIR = include
 
 # Options de compilation
 CXXFLAGS = -Wall -W -pedantic  -I$(INCDIR)
-LDFLAGS = 
+LDFLAGS = -l SDL2 -l SDL2_image
 
 # Recherche des fichiers sources et génération des objets
 SRC = $(wildcard $(SRCDIR)/*.$(EXT))
