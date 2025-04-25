@@ -1,5 +1,4 @@
 #include "game.h"
-#include <SDL2/SDL_image.h>
 
 SDL_Window *createWindow(int window_Width, int window_Height) {
     // une fenêtre
@@ -84,4 +83,10 @@ void render_background(SDL_Renderer* renderer, SDL_Texture* background) {
     SDL_Rect dstRect = { 0, 0, w, h };
     SDL_RenderCopy(renderer, background, NULL, &dstRect);
     SDL_RenderPresent(renderer);
+}
+
+void menu(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
+    // Afficher le background
+    SDL_RenderClear(renderer);
+    render_background(renderer, tableauTextures[0]);
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 /**
  * Creation de la fenetre SDL
@@ -29,6 +30,13 @@ SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour);
 
 // Charge une texture PNG depuis un chemin complet vers un fichier
 SDL_Texture* load_texture_from_file(SDL_Renderer* renderer, const char* folder, const char* filename);
+
+/**
+ * Afficher le menu
+ * @param renderer
+ * @param textures tableau des textures
+ */
+void menu(SDL_Renderer* renderer, SDL_Texture** tableauTextures);
 
 // Affiche une texture en pleine fenêtre en background
 void render_background(SDL_Renderer* renderer, SDL_Texture* background);

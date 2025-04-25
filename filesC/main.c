@@ -29,10 +29,13 @@ int main() {
         printf("Error: Aucune texture chargée ! (File: main.c)");
     };
 
-    //affichage du premier background
-    SDL_RenderClear(renderer);
-    render_background(renderer, tableauTextures[0]);
+    // demarrage sur le menu
+    menu(renderer, tableauTextures);
+    waitingEventMenu(renderer);
 
+    // chargement du jeu
+
+    
     // Events SDL
     waitingEvent(renderer);
 
