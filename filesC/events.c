@@ -1,4 +1,5 @@
 #include "events.h"
+#include "player.h"
 
 void waitingEvent(SDL_Renderer *renderer) {
     // un evenement SDL
@@ -14,9 +15,26 @@ void waitingEvent(SDL_Renderer *renderer) {
                 break;
             
             case SDL_KEYDOWN:
-                SDL_RenderClear(renderer);
-                SDL_RenderPresent(renderer);
-                break;
+                if (event.key.keysym.sym == SDLK_SPACE) {
+                    continuer = SDL_FALSE;
+                    break;
+                };
+                if (event.key.keysym.sym == SDLK_z) { 
+                    // sauter()
+                    printf("z");
+                    break;
+                };
+                if (event.key.keysym.sym == SDLK_d) {
+                    // avancer()
+                    break;
+                };
+                if (event.key.keysym.sym == SDLK_q) {
+                    // recule()
+                    break;
+                }
+                // SDL_RenderClear(renderer);
+                // SDL_RenderPresent(renderer);
+                // break;
         }
     }
 }

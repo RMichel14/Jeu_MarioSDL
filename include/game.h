@@ -21,4 +21,16 @@ SDL_Window *createWindow(int window_Width, int window_Height);
  */
 SDL_Renderer *createRenderer(SDL_Window *window);
 
+/**
+ * Chargement des textures du dossier images
+ * @return pointeur vers le tableau de textures
+ */
+SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour);
+
+// Charge une texture PNG depuis un chemin complet vers un fichier
+SDL_Texture* load_texture_from_file(SDL_Renderer* renderer, const char* folder, const char* filename);
+
+// Affiche une texture en pleine fenêtre en background
+void render_background(SDL_Renderer* renderer, SDL_Texture* background);
+
 #endif
