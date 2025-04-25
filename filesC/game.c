@@ -38,7 +38,7 @@ SDL_Renderer *createRenderer(SDL_Window *window) {
 
 SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour) {
     const char* filenames[] = {
-        "background_accueil.jpg",
+        "background_accueil.png",
     };
 
     int nbImages = sizeof(filenames) / sizeof(filenames[0]);
