@@ -37,7 +37,8 @@ SDL_Renderer *createRenderer(SDL_Window *window) {
 
 SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour) {
     const char* filenames[] = {
-        "background_accueil.png",
+        "background_accueil.png", // index 0
+        "background_game.jpg",    // index 1
     };
 
     int nbImages = sizeof(filenames) / sizeof(filenames[0]);
@@ -78,7 +79,7 @@ void render_background(SDL_Renderer* renderer, SDL_Texture* background) {
     if (!background) return;
 
     int w, h;
-    SDL_GetRendererOutputSize(renderer, &w, &h);
+    SDL_GetRendererOutputSize(renderer, &w, &h); // optient la taille de la fenetre (hauteur, largeur)
 
     SDL_Rect dstRect = { 0, 0, w, h };
     SDL_RenderCopy(renderer, background, NULL, &dstRect);
@@ -89,4 +90,13 @@ void menu(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
     // Afficher le background
     SDL_RenderClear(renderer);
     render_background(renderer, tableauTextures[0]);
+}
+
+void game(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
+    // Clean de la fenetre (optionnel car deja clear dans le changement)
+    // SDL_RenderClear(renderer);
+    // SDL_RenderPresent(renderer);
+
+    // affichage du background
+    render_background(renderer, tableauTextures[1]);
 }

@@ -34,10 +34,10 @@ int main() {
     waitingEventMenu(renderer);
 
     // chargement du jeu
+    game(renderer, tableauTextures);
 
-    
     // Events SDL
-    waitingEvent(renderer);
+    waitingEvent(renderer, tableauTextures);
 
     // liberation de la memoire
     if (NULL != renderer)

@@ -1,7 +1,7 @@
 #include "events.h"
 #include "player.h"
 
-void waitingEvent(SDL_Renderer *renderer) {
+void waitingEvent(SDL_Renderer *renderer, SDL_Texture **tableauTextures) {
     // un evenement SDL
     SDL_Event event;
     // le boolean qui stoppe la boucle while
@@ -25,7 +25,7 @@ void waitingEvent(SDL_Renderer *renderer) {
                     break;
                 };
                 if (event.key.keysym.sym == SDLK_d) {
-                    // avancer()
+                    avancer(renderer, tableauTextures);
                     break;
                 };
                 if (event.key.keysym.sym == SDLK_q) {

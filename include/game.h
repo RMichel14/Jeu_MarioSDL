@@ -41,4 +41,9 @@ void menu(SDL_Renderer* renderer, SDL_Texture** tableauTextures);
 // Affiche une texture en pleine fenêtre en background
 void render_background(SDL_Renderer* renderer, SDL_Texture* background);
 
+/**
+ * Demarrage du jeu
+ */
+void game(SDL_Renderer* renderer, SDL_Texture** tableauTextures);
+
 #endif
