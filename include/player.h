@@ -9,7 +9,20 @@
 
 /**
  * Faire avancer le personnage
+ * @param renderer SDL Renderer
+ * @param tableauTextures tableau de SDL Textures
  */
-void avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures);
+void avancer(SDL_Renderer *renderer, SDL_Texture **tableauTextures);
+
+/**
+ * Faire sauter le personnage
+ */
+void sauter();
+
+/**
+ * Faire redescendre le joueur 'au sol'
+ * @param solY position du sol
+ */
+void gravite(int solY);
 
 #endif

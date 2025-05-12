@@ -1,62 +1,62 @@
 #include "player.h"
 
+// Definitions de certaines variables pour le saut (deplacement Y)
+static int joueurY = -1; // position Y du joueur
+static float vitesseY = 0; // vitesse verticale
+static int enSaut = 0; // 1 si le joueur saute
+
 void avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
+    static int scrollX = 0;
+    const int scrollSpeed = 1;
+    const int joueurWidth = 50, joueurHeight = 80;
+    const int solY = 600-60-80; // position Y de référence du sol (calcul : 600 - 60 - 80)
+
     int windowWidth, windowHeight;
-    SDL_GetRendererOutputSize(renderer, &windowWidth, &windowHeight); // optient la taille de la fenetre (hauteur, largeur)
+    SDL_GetRendererOutputSize(renderer, &windowWidth, &windowHeight);
+
+    if (joueurY == -1) joueurY = solY;
+
+    // Appliquer la gravité
+    gravite(solY);
 
     SDL_Texture *bg = tableauTextures[1];
-
     int bgWidth, bgHeight;
     SDL_QueryTexture(bg, NULL, NULL, &bgWidth, &bgHeight);
 
-    int scrollX = 0;
-    int scrollSpeed = 2;
+    scrollX -= scrollSpeed;
+    if (scrollX <= -bgWidth)
+        scrollX += bgWidth;
 
-    // SDL_Event event;
-    // SDL_bool continuer = SDL_TRUE;
+    SDL_RenderClear(renderer);
 
-    // while (continuer) {
-    //     if (event.key.keysym.sym) {
-    //         printf("KEY q released !");
-    //         continuer = SDL_FALSE;
-    //     }
-        // SDL_PollEvent(&event); // attente d'un evenement
-        // switch (event.type) {
-        //     case SDL_QUIT:
-        //         continuer = SDL_FALSE;
-        //         break;
-        //     case SDL_KEYUP:
-        //         if (event.key.keysym.sym == SDLK_a) {
-        //             continuer = SDL_FALSE;
-        //             printf("KEY q released !");
-        //             break;
-        //         };
-        //         if (event.key.keysym.sym == SDLK_SPACE) {
-        //             continuer = SDL_FALSE;
-        //             printf("FORCE EXIT");
-        //             exit(EXIT_SUCCESS);
-        //             break;
-        //         };
-            
-        // }
-
-        // Récupérer la taille actuelle de la fenêtre
-        // int windowWidth, windowHeight;
-        // SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-        // SDL_GetRendererOutputSize(renderer, &windowWidth, &windowHeight);
-
-        scrollX -= scrollSpeed;
-        if (scrollX <= -bgWidth)
-            scrollX += bgWidth;
-
-        SDL_RenderClear(renderer);
-
-        // Dessine autant d'images que nécessaire pour couvrir toute la largeur
-        for (int x = scrollX; x < windowWidth; x += bgWidth) {
-            SDL_Rect dest = {x, 0, bgWidth, windowHeight};
-            SDL_RenderCopy(renderer, bg, NULL, &dest);
-        }
-
-        SDL_RenderPresent(renderer);
+    for (int x = scrollX; x < windowWidth; x += bgWidth) {
+        SDL_Rect dest = {x, 0, bgWidth, windowHeight};
+        SDL_RenderCopy(renderer, bg, NULL, &dest);
     }
-// }
+
+    SDL_Rect joueurRect = {100, joueurY, joueurWidth, joueurHeight};
+    SDL_RenderCopy(renderer, tableauTextures[3], NULL, &joueurRect);
+
+    SDL_RenderPresent(renderer);
+}
+
+void sauter() {
+    // Appliquer une vitesse vers le haut si le joueur est au sol
+    if (!enSaut) {
+        vitesseY = -10.0f; // vitesse initiale de saut
+        enSaut = 1;
+    }
+}
+
+void gravite(int solY) {
+    const float graviteForce = 0.2f;
+
+    vitesseY += graviteForce;
+    joueurY += (int)vitesseY;
+
+    if (joueurY >= solY) {
+        joueurY = solY;
+        vitesseY = 0;
+        enSaut = 0;
+    }
+}

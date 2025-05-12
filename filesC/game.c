@@ -39,6 +39,8 @@ SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour) {
     const char* filenames[] = {
         "background_accueil.png", // index 0
         "background_game.jpg",    // index 1
+        "joueur1.jpg",            // index 2
+        "joueur2.jpg",            // index 3
     };
 
     int nbImages = sizeof(filenames) / sizeof(filenames[0]);
@@ -94,9 +96,22 @@ void menu(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
 
 void game(SDL_Renderer* renderer, SDL_Texture** tableauTextures) {
     // Clean de la fenetre (optionnel car deja clear dans le changement)
-    // SDL_RenderClear(renderer);
-    // SDL_RenderPresent(renderer);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 
     // affichage du background
     render_background(renderer, tableauTextures[1]);
+    
+    // affichage du joueur
+
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(renderer, &windowWidth, &windowHeight);
+
+    SDL_Texture *joueur = tableauTextures[2]; // joueur statique;
+
+    int joueurWidth = 50, joueurHeight = 80; // taille du sprite
+    SDL_Rect joueurRect = {100, windowHeight - joueurHeight - 65, joueurWidth, joueurHeight};
+    SDL_RenderCopy(renderer, joueur, NULL, &joueurRect);
+
+    SDL_RenderPresent(renderer);
 }
