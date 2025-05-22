@@ -39,8 +39,8 @@ SDL_Texture** loadTextures(SDL_Renderer* renderer, int* nbImagesRetour) {
     const char* filenames[] = {
         "background_accueil.png", // index 0
         "background_game.jpg",    // index 1
-        "joueur1.jpg",            // index 2
-        "joueur2.jpg",            // index 3
+        "joueur1.png",            // index 2
+        "joueur2.png",            // index 3
     };
 
     int nbImages = sizeof(filenames) / sizeof(filenames[0]);

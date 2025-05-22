@@ -7,8 +7,10 @@ void waitingEvent(SDL_Renderer *renderer, SDL_Texture **tableauTextures) {
 
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
+    Uint32 lastSpawnTime = 0; // Temps du dernier spawn
+
     while (continuer) {
-        // Gestion des événements
+        // Gestion des evenements
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT)
                     continuer = SDL_FALSE;
@@ -34,9 +36,10 @@ void waitingEvent(SDL_Renderer *renderer, SDL_Texture **tableauTextures) {
             }
         }
 
-        // Vérifie si la touche est maintenue
+        // Verifie si la touche est maintenue
         if (keystates[SDL_SCANCODE_D]) {
-            avancer(renderer, tableauTextures);
+            if (avancer(renderer, tableauTextures, &(lastSpawnTime)) == 1)
+                continuer = SDL_FALSE;
             // SDL_Delay(16); // petite pause (~60 FPS)
         }
     }
@@ -58,9 +61,9 @@ void waitingEventMenu(SDL_Renderer *renderer) {
 
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_SPACE) {
-                continuer = SDL_FALSE;
                 SDL_RenderClear(renderer);
                 SDL_RenderPresent(renderer);
+                continuer = SDL_FALSE;
                 break;
             };
         }

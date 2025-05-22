@@ -11,8 +11,10 @@
  * Faire avancer le personnage
  * @param renderer SDL Renderer
  * @param tableauTextures tableau de SDL Textures
+ * @param lastSpawnTime Temps du dernier spawn d un obstacle
+ * @return (1: le joueur est mort / 0: il est en vie)
  */
-void avancer(SDL_Renderer *renderer, SDL_Texture **tableauTextures);
+int avancer(SDL_Renderer *renderer, SDL_Texture **tableauTextures, Uint32 *lastSpawnTime);
 
 /**
  * Faire sauter le personnage
