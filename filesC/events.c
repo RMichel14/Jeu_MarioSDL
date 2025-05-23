@@ -8,6 +8,8 @@ void waitingEvent(SDL_Renderer *renderer, SDL_Texture **tableauTextures) {
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
     Uint32 lastSpawnTime = 0; // Temps du dernier spawn
+    Uint32 lastPlatformTime = 0;
+    Uint32 platformInterval = 3000; // toutes les 3 secondes
 
     while (continuer) {
         // Gestion des evenements
@@ -38,7 +40,7 @@ void waitingEvent(SDL_Renderer *renderer, SDL_Texture **tableauTextures) {
 
         // Verifie si la touche est maintenue
         if (keystates[SDL_SCANCODE_D]) {
-            if (avancer(renderer, tableauTextures, &(lastSpawnTime)) == 1)
+            if (avancer(renderer, tableauTextures, &(lastSpawnTime), &(lastPlatformTime), &(platformInterval)) == 1)
                 continuer = SDL_FALSE;
             // SDL_Delay(16); // petite pause (~60 FPS)
         }

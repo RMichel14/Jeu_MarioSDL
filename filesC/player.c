@@ -1,12 +1,13 @@
 #include "player.h"
 #include "dangers.h"
+#include "blocs.h"
 
 // Definitions de certaines variables pour le saut (deplacement Y)
 static int joueurY = -1; // position Y du joueur
 static float vitesseY = 0; // vitesse verticale
 static int enSaut = 0; // 1 si le joueur saute
 
-int avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures, Uint32 *lastSpawnTime) {
+int avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures, Uint32 *lastSpawnTime, Uint32 *lastPlatformTime, Uint32 *platformInterval) {
     static int scrollX = 0;
     const int scrollSpeed = 2;
     const int joueurWidth = 50, joueurHeight = 80;
@@ -40,6 +41,9 @@ int avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures, Uint32 *lastS
     // Met a jour les obstacles
     updateObstacles(scrollSpeed);
 
+    // Met a jour les plateformes
+    updatePlatforms(scrollSpeed);
+
     // Verifie les collisions
     if (checkCollision(joueurRect)) {
         return 1; // Game Over / le joueur est mort
@@ -53,8 +57,19 @@ int avancer(SDL_Renderer* renderer, SDL_Texture** tableauTextures, Uint32 *lastS
         *lastSpawnTime = currentTime;
     }
 
+    // Dans la boucle principale :
+    Uint32 currentTime2 = SDL_GetTicks();
+    if (currentTime2 - *lastPlatformTime >= *platformInterval) {
+        spawnPlatform();
+        *lastPlatformTime = currentTime2;
+    }
+
+
     // Obstacles
     renderObstacles(renderer);
+
+    // Plateforme
+    renderPlatforms(renderer);
 
     // affichage du joueur
     SDL_RenderCopy(renderer, tableauTextures[3], NULL, &joueurRect);

@@ -14,7 +14,7 @@
  * @param lastSpawnTime Temps du dernier spawn d un obstacle
  * @return (1: le joueur est mort / 0: il est en vie)
  */
-int avancer(SDL_Renderer *renderer, SDL_Texture **tableauTextures, Uint32 *lastSpawnTime);
+int avancer(SDL_Renderer *renderer, SDL_Texture **tableauTextures, Uint32 *lastSpawnTime, Uint32 *lastPlatformTime, Uint32 *platformInterval);
 
 /**
  * Faire sauter le personnage
